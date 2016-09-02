@@ -1,0 +1,15 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "VALIDATE_COMPANY"
+			  lock-on-active true
+                ruleflow-group "prevalidations"
+                  dialect "mvel"
+		    when
+		      $payment:Insured( nif != "VISA"  && nif != "American Express" && nif !="Mastercard" )
+		    then
+                        modify($payment){setDecision("rejected"  )};
+                        modify($payment){setScore( $payment.getScore()-50 )};
+		        modify($payment){setRulesOutcome( "Invalid number credit card company " +$payment.getId()+" "+$payment.getName())};
+ System.out.println("Rule all fired for this fact"+$payment.getId()+" "+$payment.getName()); 
+                        
+		end

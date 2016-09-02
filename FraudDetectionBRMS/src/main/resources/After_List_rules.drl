@@ -1,0 +1,12 @@
+package  org.sgutierr.brms.crud.model;
+rule "Retract Applicant after Validation"
+	dialect "mvel"
+        lock-on-active true
+	ruleflow-group "decision"
+	salience -10
+	when
+		fact :Insured( )
+	then
+		retract(fact);
+		System.out.println("Executed Rule: " + drools.getRule().getName() );
+end

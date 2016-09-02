@@ -1,0 +1,23 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "SCORE_TOTAL_AMOUNT"
+		  lock-on-active true
+                 ruleflow-group "score"
+                when
+		      $payment:Insured( totalAmount < 50 )
+		    then
+                        modify($payment){setScore( $payment.getScore()+10 )};
+		        System.out.println("Score for low total amount");                       
+		end
+
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "SCORE_TOTAL_AMOUNT2"
+		  lock-on-active true
+                 ruleflow-group "score"
+                when
+		      $payment:Insured( totalAmount > 50, totalAmount < 100 )
+		    then
+                        modify($payment){setScore( $payment.getScore()+5 )};
+		        System.out.println("Score for low total amount");                       
+		end

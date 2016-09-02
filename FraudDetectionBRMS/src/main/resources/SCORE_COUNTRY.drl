@@ -1,0 +1,11 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "SCORE_COUNTRYCC"
+		  lock-on-active true
+                 ruleflow-group "score"
+                when
+		      $payment:Insured( countryCC == "Spain" || nif == "Canada" )
+		    then
+                        modify($payment){setScore( $payment.getScore()+5 )};
+		        System.out.println("Score for COUNTRYCC");                       
+		end

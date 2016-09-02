@@ -1,0 +1,12 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "VALIDATE_NAME"
+		  lock-on-active true
+                   ruleflow-group "prevalidations"
+		    when
+		      $payment:Insured( name != "avion")
+		    then
+                        modify($payment){setDecision( "rejected"  )};
+                        modify($payment){setScore( $payment.getScore()-100 )};
+		       
+		end

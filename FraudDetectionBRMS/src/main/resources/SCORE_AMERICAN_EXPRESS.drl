@@ -1,0 +1,11 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "SCORE_AMERICAN_EXPRESS"
+		  lock-on-active true
+                 ruleflow-group "score"
+                when
+		      $payment:Insured( nif == "American Express" || nif == "VISA" )
+		    then
+                        modify($payment){setScore( $payment.getScore()+20 )};
+		        System.out.println("Score for american express");                       
+		end

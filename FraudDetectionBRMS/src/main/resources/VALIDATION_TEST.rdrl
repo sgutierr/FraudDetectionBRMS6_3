@@ -1,0 +1,11 @@
+import java.lang.Number;
+import org.sgutierr.brms.crud.model.Insured;
+
+rule "VALIDATION_TEST"
+	dialect "java"
+	lock-on-active true
+	when
+		Insured( email == "\"s@p.com\"" )
+	then
+		System.out.println("s@p.com invalid");
+end

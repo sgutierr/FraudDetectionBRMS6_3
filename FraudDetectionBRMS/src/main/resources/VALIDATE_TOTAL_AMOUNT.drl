@@ -1,0 +1,14 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "VALIDATE_TOTAL_AMOUNT"
+			  lock-on-active true
+                ruleflow-group "prevalidations"
+                  dialect "mvel"
+		    when
+		      $payment:Insured( totalAmount > 500 )
+		    then
+                        modify($payment){setDecision("manual"  )};
+		        modify($payment){setRulesOutcome( "Too much total amount, let's go to manual process " +$payment.getId()+" "+$payment.getName())};
+ System.out.println("Rule all fired for this fact - total amount "+$payment.getId()+" "+$payment.getName()); 
+                        
+		end

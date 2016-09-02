@@ -1,0 +1,12 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "SCORE_SAME_COUNTRY"
+		  lock-on-active true
+                     ruleflow-group "score"
+		    when
+		      $payment:Insured(countryCC !=countryOrder)
+		    then
+                            modify($payment){setScore( $payment.getScore()-10 )};
+ System.out.println("Rule all fired for this fact"+$payment.getId()+" "+$payment.getName()); 
+                        
+		end

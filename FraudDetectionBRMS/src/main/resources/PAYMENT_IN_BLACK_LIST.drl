@@ -1,0 +1,15 @@
+package org.sgutierr.brms.crud.model;
+
+rule "PaymentInBlackList"
+    lock-on-active true
+    ruleflow-group "list-rules"
+    salience 4
+	when
+		$payment:Insured()
+		blackList:BlackList( blackList.accountNumbers contains $payment.insuranceNumber ) 		
+	then 
+   modify($payment){setDecision("rejected" )};
+ modify($payment){setScore($payment.getScore()-100)};
+		        modify($payment){setRulesOutcome( "Valid  CCN, it's in Black List " +$payment.getId()+" "+$payment.getName())};
+ System.out.println("Valid  CCN, it's in Black List "+$payment.getId()+" "+$payment.getName()); 
+end

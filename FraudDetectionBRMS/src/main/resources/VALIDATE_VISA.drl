@@ -1,0 +1,13 @@
+	import org.sgutierr.brms.crud.model.Insured;
+		
+		rule "VALIDATE_VISA"
+	        dialect "mvel"
+  	         lock-on-active true
+		   when
+		      $payment:Insured( insuranceNumber matches "3.*" , nif == "VISA" )
+		    then
+                        modify($payment){setDecision("rejected" )};
+                        modify($payment){setScore( $payment.getScore()-100 )};
+		        modify($payment){setRulesOutcome( "Invalid number for VISA "+$payment.getId()+" "+$payment.getName() )};
+                         System.out.println("Rule all fired for this fact"+$payment.getId()+" "+$payment.getName()); 
+		end
