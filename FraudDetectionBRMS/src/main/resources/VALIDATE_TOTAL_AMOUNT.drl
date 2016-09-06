@@ -5,7 +5,7 @@
                 ruleflow-group "prevalidations"
                   dialect "mvel"
 		    when
-		      $payment:Insured( totalAmount > 500 )
+		      $payment:Insured( totalAmount > 5000 )
 		    then
                         modify($payment){setDecision("manual"  )};
 		        modify($payment){setRulesOutcome( "Too much total amount, let's go to manual process " +$payment.getId()+" "+$payment.getName())};

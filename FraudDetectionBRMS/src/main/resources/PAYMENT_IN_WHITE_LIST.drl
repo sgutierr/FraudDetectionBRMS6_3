@@ -9,7 +9,7 @@ rule "PaymentInWhiteList"
 		whiteList:WhiteList( whiteList.accountNumbers contains $payment.insuranceNumber ) 		
 	then 
    modify($payment){setDecision( "approved" )};
-      modify($payment){setScore($payment.getScore()+100)};
+      modify($payment){setScore($payment.score+100)};
 		        modify($payment){setRulesOutcome( "Valid  CCN, it's in White List " +$payment.getId()+" "+$payment.getName())};
  System.out.println("Valid  CCN, it's in White List "+$payment.getId()+" "+$payment.getName()); 
 end

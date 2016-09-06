@@ -1,0 +1,4 @@
+'Insured.decision' : ['initial', 'approved', 'rejected', 'manual']
+'Insured.countryCC' : (new org.sgutierr.brms.crud.model.EnumerateCountries()).loadData()
+'Insured.countryOrder[countryCC=Spain]' : ['Barcelona','Madrid']
+'Insured.countryOrder[countryCC=France]' : ['Paris','Marsella']
